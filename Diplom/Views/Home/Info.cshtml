@@ -1,0 +1,207 @@
+﻿@model IEnumerable<Diplom.User>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Информация о пользователе</title>
+</head>
+
+
+<body>
+    <div>
+        <div style="display: flex; align-items: flex-start;">
+            <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%;">
+                <p>
+                    Идентификатор
+                </p>
+            </div>
+            <div style="text-align: center; vertical-align: middle; width: 400px; height: 100%; border-left: solid #A9A9A9; border-width: 1px; ">
+                <p>
+                    @ViewBag.UserId
+                </p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: flex-start;">
+            <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%;">
+                <p>
+                    ФИО
+                </p>
+            </div>
+            <div style="text-align: center; vertical-align: middle; width: 300px; height: 100%; border-left: solid #A9A9A9; border-width: 1px; ">
+                <p>
+                    @ViewBag.UserFio
+                </p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: flex-start;">
+            <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%;">
+                <p>
+                    Вероятность взлома
+                </p>
+            </div>
+            <div style="text-align: center; vertical-align: middle; width: 300px; height: 100%; border-left: solid #A9A9A9; border-width: 1px; ">
+                <p>
+                    @ViewBag.UserMark
+                </p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-start;">
+            <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%;">
+                <p>
+                    Флаг
+                </p>
+            </div>
+            <div style="text-align: center; vertical-align: middle; width: 300px; height: 100%; border-left: solid #A9A9A9; border-width: 1px; ">
+                <p>
+                    @ViewBag.Flag
+                </p>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
+
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
+            <p>
+                Длительность
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastDur
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.MDur
+            </p>
+        </div>
+    </div>
+
+
+    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
+
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
+            <p>
+                Время начала
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastStart
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.MStart
+            </p>
+        </div>
+    </div>
+    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
+
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
+            <p>
+                Время окончания
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastFinish
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.MFinish
+            </p>
+        </div>
+    </div>
+    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
+
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
+            <p>
+                Страна
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastCountry
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastCountry
+            </p>
+        </div>
+    </div>
+    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
+
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
+            <p>
+                Использование ПК
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastPK
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastPK
+            </p>
+        </div>
+    </div>
+    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
+
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
+            <p>
+                Формы заполнения
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
+            <p>
+            @ViewBag.LastForm
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastForm
+            </p>
+        </div>
+    </div>
+    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
+
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
+            <p>
+                Разделы сайта
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.LastSec
+            </p>
+        </div>
+        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
+            <p>
+                @ViewBag.MSec
+            </p>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
