@@ -72,6 +72,7 @@ namespace WebAPI.Controllers
                         sec.SessionId = Guid.NewGuid();
                         sec.Users = data.userID;
                         sec.Section = st[i];
+                        sec.Value = ses.value;
                         if (i < ft.Length) sec.Form = ft[i];
                         else sec.Form = 1;
 

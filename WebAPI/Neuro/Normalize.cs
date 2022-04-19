@@ -24,11 +24,7 @@ namespace WebAPI.Neuro
             {
                 data[i] = new DataNeuro();
             }
-            NormalizedData[] normData = new NormalizedData[num]; 
-            for(int i =0; i<num; i++)
-            {
-                normData[i] = new NormalizedData();
-            }
+            
 
             int counter = 0;
             foreach(var t in sessions) // вытаскиваем по айди пользователя все сессии в бд
@@ -46,18 +42,26 @@ namespace WebAPI.Neuro
                 counter++;
             }
 
-            GenBadReq gbr = new GenBadReq();
-            var data2 = gbr.GenerateBad(data);
-
-
-            for(int i =0; i< data2.Length; i++) // нормализуем все данные
+            if(!time)
             {
-                var start = data2[i].startTime.Hour * 3600 + data2[i].startTime.Minute * 60 + data2[i].startTime.Second;
-                var finish = data2[i].finishTime.Hour * 3600 + data2[i].finishTime.Minute * 60 + data2[i].finishTime.Second;
+                GenBadReq gbr = new GenBadReq();
+                data = gbr.GenerateBad(data);
+            }
+
+            NormalizedData[] normData = new NormalizedData[data.Length];
+            for (int i = 0; i < normData.Length; i++)
+            {
+                normData[i] = new NormalizedData();
+            }
+
+            for (int i =0; i< data.Length; i++) // нормализуем все данные
+            {
+                var start = data[i].startTime.Hour * 3600 + data[i].startTime.Minute * 60 + data[i].startTime.Second;
+                var finish = data[i].finishTime.Hour * 3600 + data[i].finishTime.Minute * 60 + data[i].finishTime.Second;
                 normData[i].startTime = Uravnenie(start, 1, 86400);
                 normData[i].startTime = Uravnenie(finish, 1, 86400);
-                normData[i].country = Uravnenie(data2[i].country, 1, db.Countries.Count());
-                normData[i].pk = data2[i].pk == true ? 1 : 0;
+                normData[i].country = Uravnenie(data[i].country, 1, db.Countries.Count());
+                normData[i].pk = data[i].pk == true ? 1 : 0;
 
                 int cForm = db.Forms.Count();
                 int minForm = db.Forms.FirstOrDefault().FormId;
@@ -67,13 +71,13 @@ namespace WebAPI.Neuro
                 int minSec = db.Sections.FirstOrDefault().SectionId;
                 int maxSec = cSec + minSec;
 
-                normData[i].form = Uravnenie(data2[i].form, minForm, maxForm);
-                normData[i].section = Uravnenie(data2[i].section, minSec, maxSec);
+                normData[i].form = Uravnenie(data[i].form, minForm, maxForm);
+                normData[i].section = Uravnenie(data[i].section, minSec, maxSec);
 
-                normData[i].formTime = Uravnenie(data2[i].formTime, 1, 1200);
-                normData[i].sectionTime = Uravnenie(data2[i].sectionTime, 1, 1200);
+                normData[i].formTime = Uravnenie(data[i].formTime, 1, 1200);
+                normData[i].sectionTime = Uravnenie(data[i].sectionTime, 1, 1200);
 
-                normData[i].value = 0.01 * data2[i].value;
+                normData[i].value = 0.01 * data[i].value;
             }
             return normData; //возврашаем массив нормализованных данных в диапозоне 0-1 для нейронной сети всех сессии 1 пользователя
         }

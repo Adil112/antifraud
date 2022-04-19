@@ -26,19 +26,21 @@ namespace WebAPI.Neuro
             FormCounter[] fCount = new FormCounter[7];
             SectionCounter[] sCount = new SectionCounter[12];
 
-            for(int i =1; i< fCount.Length+1; i++)
+            for(int i =0; i< fCount.Length; i++)
             {
                 FormCounter fc = new FormCounter();
-                fc.id = i;
+                fc.id = i+1;
                 fc.time = 0;
                 fc.counter = 0;
+                fCount[i] = fc;
             }
-            for (int i = 1; i < sCount.Length + 1; i++)
+            for (int i = 0; i < sCount.Length ; i++)
             {
                 SectionCounter fc = new SectionCounter();
-                fc.id = i;
+                fc.id = i+1;
                 fc.time = 0;
                 fc.counter = 0;
+                sCount[i] = fc;
             }
 
             for (int i =1; i<47; i++)

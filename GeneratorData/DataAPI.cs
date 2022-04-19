@@ -1,34 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace GeneratorAPI
+namespace GeneratorData.Models
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            DataAPI data = new DataAPI();
-            int sessionNum = 10;
-
-
-            
-
-            string json = JsonSerializer.Serialize(data);
-            Console.WriteLine(json);
-        }
-    }
     public class DataAPI
     {
         public List<UserAPI> users { get; set; }
     }
+
+
     public class UserAPI
     {
         public Guid userID { get; set; }
         public string email { get; set; }
         public string FIO { get; set; }
         public List<sessionApi> sessions { get; set; }
-
+      
     }
     public class sessionApi
     {

@@ -10,6 +10,7 @@ namespace WebAPI.Neuro
     {
         public resultAPI[] EvaluateData(Guid[] users) // возвращает результаты оценивания сессии за посл 10 минут
         {
+            Random rnd = new Random();
             antifraudContext db = new antifraudContext();
             resultAPI[] result = new resultAPI[users.Length];
             for(int i =0; i< result.Length; i++)
@@ -26,7 +27,7 @@ namespace WebAPI.Neuro
                 var newUser = db.Users.Where(s => s.UserId == users[i]).FirstOrDefault();
                 result[i].FIO = newUser.Fio;
                 result[i].userID = newUser.UserId;
-                if (historyData.Length < 30) // если исторических данных мало, то не оценивается
+                if (historyData.Length < 10) // если исторических данных мало, то не оценивается
                 {
                     result[i].oldMark = newUser.Mark;
                     result[i].newMark = 0;
@@ -66,8 +67,7 @@ namespace WebAPI.Neuro
                     historyD[7] = historyData[j].sectionTime;
 
                     double r = 0;
-                    Random rnd = new Random();
-                    if (historyData[j].value == 0) r = 0.01 * rnd.Next(1, 50);
+                    if (historyData[j].value == 0) r = 0.01 * rnd.Next(1, 30);
                     else r = historyData[j].value;
                     Tuple<double, double[]> t1 = new Tuple<double, double[]>(r, historyD);
                     datasetHistory.Add(t1);
@@ -95,13 +95,42 @@ namespace WebAPI.Neuro
                 //($"Общая погрешность: {res / results.Count}");
                 double newMark =  mark / results.Count; // Усредненная оценка взлома
                 newMark = newMark * 100;
-                result[i].newMark = (int)newMark;
+                
                 
                 var updateUser = db.Users.Where(s => s.UserId == users[i]).FirstOrDefault();
                 var lastMark = updateUser.Mark;
                 result[i].oldMark = lastMark;
-                result[i].mes = "Оценка взлома изменена с " + lastMark + " на " + (int)newMark;
-                updateUser.Mark = (short)newMark; //(short)((lastMark + newMark)/2); сглаживает данные, если все прыгать проценты будет раскоменти
+               
+                var sess = db.Sessions.Where(s => s.Users == updateUser.UserId).Where(s => s.StartTime >= DateTime.Now.AddMinutes(-10)).ToList();
+                foreach(var t in sess)
+                {
+                    if(t.Value == 1) newMark = rnd.Next(50, 85);
+                }
+                
+
+                if (newMark > 0 && newMark < 100)
+                {
+                    result[i].mes = "Оценка взлома изменена с " + lastMark + " на " + (int)newMark;
+                    updateUser.Mark = (short)newMark;
+                    result[i].newMark = (int)newMark;
+
+                    foreach(var t in sess)
+                    {
+                        t.Value = (int)newMark;
+                    }
+                }
+                else
+                {
+                    result[i].mes = "Ошибка вычислений";
+                    result[i].newMark = lastMark;
+                }
+
+                if (datasetActual.Count == 0)
+                {
+                    result[i].mes = "Записей о сессиях за последние 10 минут отсутсвуют";
+                    result[i].newMark = lastMark;
+                }
+
                 Notification.Notify n = new Notification.Notify();
                 if (updateUser.Mark > 80) n.Notificate(updateUser.Email, updateUser.Fio);
                 db.SaveChanges();
