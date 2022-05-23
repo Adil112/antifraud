@@ -15,7 +15,9 @@ namespace GeneratorData.Models
     {
         public Guid userID { get; set; }
         public string email { get; set; }
-        public string FIO { get; set; }
+        public string surname { get; set; }
+        public string name { get; set; }
+        public string patronymic { get; set; }
         public List<sessionApi> sessions { get; set; }
       
     }
@@ -23,8 +25,14 @@ namespace GeneratorData.Models
     {
         public DateTime startTime { get; set; }
         public DateTime finishTime { get; set; }
-        public int country { get; set; }
-        public bool pk { get; set; }
+        public int location { get; set; }
+        public int device { get; set; }
+        public int browser { get; set; }
+        public int provider { get; set; }
+        public int system { get; set; }
+        public int language { get; set; }
+        public bool vpn { get; set; }
+        public bool proxy { get; set; }
         public int value { get; set; }
         public List<formApi> forms { get; set; }
         public List<sectionApi> sections { get; set; }

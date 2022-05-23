@@ -5,19 +5,15 @@ using System.Collections.Generic;
 
 namespace Diplom
 {
-    public partial class User
+    public partial class Language
     {
-        public User()
+        public Language()
         {
             Sessions = new HashSet<Session>();
         }
 
-        public Guid UserId { get; set; }
+        public int LanguageId { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
-        public short Mark { get; set; }
-        public string Surname { get; set; }
-        public string Patronymic { get; set; }
 
         public virtual ICollection<Session> Sessions { get; set; }
     }

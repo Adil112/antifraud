@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models
+namespace Diplom.MyModels
 {
     public class NormalizedData
     {
@@ -15,7 +15,6 @@ namespace WebAPI.Models
         public double formTime { get; set; }
         public double section { get; set; }
         public double sectionTime { get; set; }
-        public double value { get; set; }
 
     }
 }

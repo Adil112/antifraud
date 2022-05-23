@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models
+namespace Diplom.MyModels
 {
     public class DataNeuro
     {
@@ -15,7 +15,6 @@ namespace WebAPI.Models
         public int formTime { get; set; }
         public int section { get; set; }
         public int sectionTime { get; set; }
-        public int value { get; set; }
         
     }
 }

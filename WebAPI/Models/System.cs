@@ -5,19 +5,16 @@ using System.Collections.Generic;
 
 namespace WebAPI
 {
-    public partial class User
+    public partial class System
     {
-        public User()
+        public System()
         {
             Sessions = new HashSet<Session>();
         }
 
-        public Guid UserId { get; set; }
+        public int SystemId { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
-        public short Mark { get; set; }
-        public string Surname { get; set; }
-        public string Patronymic { get; set; }
+        public bool? ComputerAbility { get; set; }
 
         public virtual ICollection<Session> Sessions { get; set; }
     }

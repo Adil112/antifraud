@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diplom", "Diplom\Diplom.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{6273B84B-5F65-4135-9938-5B00D57905C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorData", "GeneratorData\GeneratorData.csproj", "{73E0EFAA-CA6E-4C41-9F05-A777C260FE8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneratorData", "GeneratorData\GeneratorData.csproj", "{73E0EFAA-CA6E-4C41-9F05-A777C260FE8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

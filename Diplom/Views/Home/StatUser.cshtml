@@ -1,0 +1,48 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cтатистика пользователя</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="chart1"></div>
+    </div>
+
+    @section scripts{
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script>
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                $.get('JsonData3', function (jsonData) {
+                    data = google.visualization.arrayToDataTable(jsonData, false);
+                    var option = {
+                        title: "Инциденты за 2 недели",
+                        vAxis: { title: 'Кол-во инцидентов' },
+                        hAxis: { title: 'День инцидента' },
+                        width: 1000,
+                        height: 500
+                    };
+                    chart = new google.visualization.LineChart(document.getElementById('chart1'));
+                    chart.draw(data, option);
+                })
+            }
+        </script>
+    }
+
+</body>
+</html>
+
+
+
+
+
+
+

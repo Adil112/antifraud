@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Diplom
+namespace WebAPI
 {
-    public partial class Country
+    public partial class Language
     {
-        public Country()
+        public Language()
         {
             Sessions = new HashSet<Session>();
         }
 
-        public byte CountryId { get; set; }
+        public int LanguageId { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<Session> Sessions { get; set; }

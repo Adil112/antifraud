@@ -1,199 +1,124 @@
-﻿@model IEnumerable<Diplom.User>
-
-
+﻿
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Информация о пользователе</title>
+    <link rel="stylesheet" href="~/css/table.css" />
 </head>
 
 
 <body>
-    <div>
-        <div style="display: flex; align-items: flex-start;">
-            <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%;">
-                <p>
-                    Идентификатор
-                </p>
-            </div>
-            <div style="text-align: center; vertical-align: middle; width: 400px; height: 100%; border-left: solid #A9A9A9; border-width: 1px; ">
-                <p>
-                    @ViewBag.UserId
-                </p>
-            </div>
-        </div>
+    <table class="simple-little-table" cellspacing="0">
+        <tr>
+            <th>Информация о пользователе</th>
+        </tr>
 
-        <div style="display: flex; align-items: flex-start;">
-            <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%;">
-                <p>
-                    ФИО
-                </p>
-            </div>
-            <div style="text-align: center; vertical-align: middle; width: 300px; height: 100%; border-left: solid #A9A9A9; border-width: 1px; ">
-                <p>
-                    @ViewBag.UserFio
-                </p>
-            </div>
-        </div>
+        <tr>
+            <td>ФИО</td>
+            <td>@ViewBag.UserFio</td>
+        </tr>
+        <tr>
+            <td>Идентификатор</td>
+            <td>@ViewBag.UserId</td>
+        </tr>
+        <tr>
+            <td>Вероятность взлома</td>
+            <td>@ViewBag.UserMark</td>
+        </tr>
+        <tr>
+            <td>Флаг</td>
+            @if (@ViewBag.UserMark <= 30)
+            {
+                <td style="background: green;">
+                    Зеленый
+                </td>
+            }
+            else if (@ViewBag.UserMark <= 75)
+            {
+                <td style="background: yellow;">
+                    Желтый
+                </td>
+            }
+            else
+            {
+                <td style="background: red;">
+                    Красный
+                </td>
+            }
+        </tr>
+    </table>
 
-        <div style="display: flex; align-items: flex-start;">
-            <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%;">
-                <p>
-                    Вероятность взлома
-                </p>
-            </div>
-            <div style="text-align: center; vertical-align: middle; width: 300px; height: 100%; border-left: solid #A9A9A9; border-width: 1px; ">
-                <p>
-                    @ViewBag.UserMark
-                </p>
-            </div>
-        </div>
-        <div style="display: flex; align-items: flex-start;">
-            <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%;">
-                <p>
-                    Флаг
-                </p>
-            </div>
-            <div style="text-align: center; vertical-align: middle; width: 300px; height: 100%; border-left: solid #A9A9A9; border-width: 1px; ">
-                <p>
-                    @ViewBag.Flag
-                </p>
-            </div>
-        </div>
-    </div>
-    <br />
+    <table class="simple-little-table">
+        <tr>
+            <th>Список локации</th>
+        </tr>
 
-    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
+        @foreach (var item in ViewBag.Loc)
+        {
+            <tr>
+                <td>@item</td>
+            </tr>
+        }
 
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
-            <p>
-                Длительность
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.LastDur
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.MDur
-            </p>
-        </div>
-    </div>
+    </table>
+    <table class="simple-little-table">
+        <tr>
+            <th>Список устройств</th>
+        </tr>
+
+        @foreach (var item in ViewBag.Sys)
+        {
+            <tr>
+                <td>@item</td>
+            </tr>
+        }
+
+    </table>
+    <table class="simple-little-table">
+        <tr>
+            <th>Список провайдеров</th>
+        </tr>
+
+        @foreach (var item in ViewBag.Pro)
+        {
+            <tr>
+                <td>@item</td>
+            </tr>
+        }
+
+    </table>
 
 
-    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
 
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
-            <p>
-                Время начала
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.LastStart
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.MStart
-            </p>
-        </div>
-    </div>
-    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
-
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
-            <p>
-                Время окончания
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.LastFinish
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.MFinish
-            </p>
-        </div>
-    </div>
-    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
-
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
-            <p>
-                Страна
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.LastCountry
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.LastCountry
-            </p>
-        </div>
-    </div>
-    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
-
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
-            <p>
-                Использование ПК
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.LastPK
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.LastPK
-            </p>
-        </div>
-    </div>
-    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
-
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
-            <p>
-                Формы заполнения
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
-            <p>
-            @ViewBag.LastForm
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.MForm
-            </p>
-        </div>
-    </div>
-    <div style="align-items: center; border:solid; border-width: 1.5px; width: 600px" class="d-flex justify-content-around">
-
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; ">
-            <p>
-                Разделы сайта
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-left: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.LastSec
-            </p>
-        </div>
-        <div style="text-align: center; vertical-align: middle; width: 200px; height: 100%; border-right: solid #A9A9A9; border-width: 1px; ">
-            <p>
-                @ViewBag.MSec
-            </p>
-        </div>
+    <div class="container">
+        <div id="chart1"></div>
     </div>
 
+    @section scripts{
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script>
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                $.get('JsonData3',   function (jsonData) {
+                    data = google.visualization.arrayToDataTable(jsonData, false);
+                    var option = {
+                        title: "Инциденты за 2 недели",
+                        vAxis: { title: 'Кол-во инцидентов' },
+                        hAxis: { title: 'День инцидента' },
+                        width: 1000,
+                        height: 500
+                    };
+                    chart = new google.visualization.LineChart(document.getElementById('chart1'));
+                    chart.draw(data, option);
+                })
+            }
+        </script>
+    }
 
 </body>
 </html>
