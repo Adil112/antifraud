@@ -52,6 +52,25 @@
 
     <table class="simple-little-table">
         <tr>
+            <th>Информация о сессиях</th>
+        </tr>
+        <tr>
+            <td>Время первой сессии:</td>
+            <td>@ViewBag.UserSes.first</td>
+        </tr>
+        <tr>
+            <td>Времям последней сесии:</td>
+            <td>@ViewBag.UserSes.last</td>
+        </tr>
+        <tr>
+            <td>Количество сессии:</td>
+            <td>@ViewBag.UserSes.count</td>
+        </tr>
+    </table>
+
+
+    <table class="simple-little-table">
+        <tr>
             <th>Список локации</th>
         </tr>
 
@@ -89,7 +108,62 @@
         }
 
     </table>
+    <table class="simple-little-table">
+        <tr>
+            <th>Список сессии</th>
+        </tr>
+        <tr>
+            <td>Начало сессии</td>
+            <td>Конец сессии</td>
+            <td>Секции</td>
+            <td>Формы</td>
+            <td>Тип устройства</td>
+            <td>Местопложение</td>
+            <td>Браузер</td>
+            <td>Провайдер</td>
+            <td>Система</td>
+            <td>Язык</td>
+            <td>VPN</td>
+            <td>Proxy</td>
+            <td>Риск взлома</td>
+        </tr>
+        @foreach (var t in ViewBag.SesSimple)
+        {
+    <tr>
+        <td>@t.start</td>
+        <td>@t.finish</td>
+        <td>@t.sections</td>
+        <td>@t.forms</td>
+        <td>@t.device</td>
+        <td>@t.location</td>
+        <td>@t.browser</td>
+        <td>@t.provider</td>
+        <td>@t.system</td>
+        <td>@t.language</td>
+        <td>@t.vpn</td>
+        <td>@t.proxy</td>
+        @if (t.value <= 30)
+        {
+            <td style="background: green;">
+                Зеленый
+            </td>
+        }
+        else if (t.value <= 75)
+        {
+            <td style="background: yellow;">
+                Желтый
+            </td>
+        }
+        else
+        {
+            <td style="background: red;">
+                Красный
+            </td>
+        }
 
+    </tr>
+            }
+            </table>
 
 
     <div class="container">
@@ -104,7 +178,7 @@
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
-                $.get('JsonData3',   function (jsonData) {
+                $.get('JsonData3', function (jsonData) {
                     data = google.visualization.arrayToDataTable(jsonData, false);
                     var option = {
                         title: "Инциденты за 2 недели",

@@ -7,7 +7,7 @@ namespace Diplom.Charts
 {
     public static class PieToday
     {
-        public static List<object> MultiLineData()
+        public static List<object> MultiLineData() // общая за 2 недели
         {
             DateTime now = DateTime.Now;
             var twoWeeks = now.AddDays(-14);
@@ -37,7 +37,7 @@ namespace Diplom.Charts
 
         }
 
-        public static List<object> PieData()
+        public static List<object> PieData() // общая за день
         {
             DateTime now = DateTime.Now;
             var today = now.AddDays(-1);
@@ -55,7 +55,7 @@ namespace Diplom.Charts
 
 
             List<object> objs = new List<object>();
-            objs.Add(new[] { "Риск", "Авторизация" });
+            objs.Add(new[] { "Риск", "Инцидент" });
             for(int i =0; i < 10; i++)
             {
                 objs.Add(new[] { i*10, data[i] });
@@ -71,7 +71,7 @@ namespace Diplom.Charts
         }
 
 
-        public static List<object> UserData()
+        public static List<object> UserData() // за 2 недели 1 пользователь
         {
             DateTime now = DateTime.Now;
             var twoWeeks = now.AddDays(-14);

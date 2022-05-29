@@ -51,9 +51,11 @@ namespace Diplom.Controllers
         }
         public IActionResult Info(Guid id)
         {
+            
             antifraudContext db = new antifraudContext();
             var user = db.Users.Where(s => s.UserId == id).FirstOrDefault();
-            ViewBag.UserId = user.UserId;
+            if (user == null) return Redirect("~/Home/Index");
+            ViewBag.UserId = id;
             ViewBag.UserFio = user.Surname + ' ' + user.Name + ' ' + user.Patronymic;
             ViewBag.UserMark = user.Mark;
             string flag = "";
@@ -68,8 +70,70 @@ namespace Diplom.Controllers
             List<int> sys = new List<int>();
             List<int> providers = new List<int>();
 
-            
+            UserSes userses = new UserSes();
+            userses.first = ses.OrderByDescending(s => s.StartTime).First().StartTime;
+            userses.last = ses.OrderBy(s => s.StartTime).First().StartTime;
+            userses.count = 0;
+
+            List<DateTime> ids = new List<DateTime>();
             foreach(var t in ses)
+            {
+                if(ids.Count == 0)
+                {
+                    ids.Add(t.StartTime);
+                    continue;
+                }
+                if(!ids.Contains(t.StartTime))
+                {
+                    ids.Add(t.StartTime);
+                    userses.count += 1;
+                }
+            }
+
+
+
+            List<SesSimple> sessimple = new List<SesSimple>();
+            foreach(var t in ids)
+            {
+                SesSimple s = new SesSimple();
+                s.start = t;
+                var minses = ses.Where(s => s.StartTime == t);
+                s.finish = minses.First().FinishTime;
+                s.device = db.Devices.Where(r=>r.DeviceId == minses.First().Device).FirstOrDefault().Name;
+                var minloc = db.Locations.Where(r => r.LocationId == minses.First().Location).FirstOrDefault();
+                s.location = minloc.Country + ", " + minloc.City;
+                s.value = (int)minses.First().Value;
+                s.browser = db.Browsers.Where(r => r.BrowserId == minses.First().Browser).FirstOrDefault().Name;
+                s.provider = db.Providers.Where(r => r.ProviderId == minses.First().Provider).FirstOrDefault().Name;
+                s.system = db.Systems.Where(r => r.SystemId == minses.First().System).FirstOrDefault().Name;
+                s.language = db.Languages.Where(r => r.LanguageId == minses.First().Language).FirstOrDefault().Name;
+                s.vpn = (bool)minses.First().Vpn ? "Да" : "Нет";
+                s.proxy = (bool)minses.First().Proxy ? "Да" : "Нет";
+                string minforms = "";
+                string minsections = "";
+                foreach (var item in minses)
+                {
+                    var f = db.FormTimes.Where(r => r.FormTimeId == item.Form).FirstOrDefault();
+                    var sss = db.SectionTimes.Where(r => r.SectionTimeId == item.Section).FirstOrDefault();
+                    minforms += f.Form.ToString() + '(' + f.Time.ToString() +')' + ' ';
+                    minsections += sss.Section.ToString() + '(' + f.Time.ToString() + ')' + ' ';
+                }
+                s.forms = minforms;
+                s.sections = minsections;
+
+
+                sessimple.Add(s);
+            }
+
+            ViewBag.SesSimple = sessimple;
+
+
+
+
+            ViewBag.UserSes = userses;
+
+
+            foreach (var t in ses)
             {
                 if(t.Location != null)
                 {
@@ -110,6 +174,8 @@ namespace Diplom.Controllers
                         if (probool) providers.Add((int)t.Provider);
                     }
                 }
+
+
             }
 
             List<string> locs = new List<string>();
@@ -175,6 +241,31 @@ namespace Diplom.Controllers
         {
             var data = Charts.PieToday.UserData();
             return Json(data);
+        }
+
+        public class UserSes
+        {
+            public DateTime first { get; set; }
+            public DateTime last { get; set; }
+            public int count { get; set; }
+
+        }
+
+        public class SesSimple
+        {
+            public DateTime start { get; set; }
+            public DateTime finish { get; set; }
+            public string device { get; set; }
+            public string location { get; set; }
+            public string forms { get; set; }
+            public string sections { get; set; }
+            public int value { get; set; }
+            public string browser { get; set; }
+            public string provider { get; set; }
+            public string system { get; set; }
+            public string language { get; set; }
+            public string vpn { get; set; }
+            public string proxy { get; set; }
         }
     }
 }
